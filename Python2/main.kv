@@ -1,0 +1,86 @@
+#:set main_color 1,1,0,1
+#:set color_accent "#4424D6"
+#:set some_color 199/255, 0, 57/255,1
+
+<ButtonMenu@Button>:
+    color: "#34091C"
+    font_size: '20dp'
+    font_name: 'assets/FixelText-Regular.ttf'
+    background_color: '#DAD4F7'
+    size_hint_y: 0.10
+    background_normal: ""
+    background_down: ''
+    on_press: self.background_color = '#C21460'
+    on_release: self.background_color = '#DAD4F7'
+
+<Screen, ScreenManager>:
+    canvas.before:
+        Rectangle:
+            source: 'assets/background_image.png'
+            size: self.size
+            pos: self.pos
+
+<MenuScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: '20dp'
+        spacing: '20dp'
+        Label:
+            id: title_game
+            text: 'Capturing the Galaxy'
+            font_name: 'assets/FixelText-Regular.ttf'
+            font_size: '30dp'
+            size_hint_y: .2
+            color: main_color
+        
+        Widget:
+            size_hint_y: .3
+        ButtonMenu:
+            text: "Settings"
+            on_press: root.show_settings()
+        ButtonMenu:
+            text: "Start"
+            on_press: root.manager.current = "game"
+
+<GameScreen>:
+    BoxLayout:
+        
+        padding:'20dp'
+        spacing: '20dp'
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 0.10
+            size: "50dp", '50dp'
+            Label:
+                id: 'result'
+                text: "score: " + str(root.points)
+                font_size: '40dp'
+                color: "#34091C"
+            Button:
+                color: "#34091C"
+                font_size: '20dp'
+                font_name: 'assets/FixelText-Regular.ttf'
+                background_color: '#DAD4F7'
+                size_hint_y: 0.10
+                background_normal: ""
+                background_down: ''
+                on_press: self.background_color = '#C21460'
+                on_release: self.background_color = '#DAD4F7'
+                text: "EXIT"
+                on_press: root.manager.current = 'menu'
+        FloatLayout:
+            orientation: 'vertical'
+            size_hint_y: 0.80
+            Planet:
+                id: planet
+
+        BoxLayout:
+            size_hint_y: 0.10
+
+<Planet>:
+    allow_stretch: True
+    size_hint: None, None
+    center: self.parent.center
+    size: '200dp', '200dp'
+    source: 'assets/images/5.png'
